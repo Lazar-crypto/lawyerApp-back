@@ -3,58 +3,65 @@ package com.razal.lawyerappback.service.impl;
 import com.razal.lawyerappback.entity.Klijent;
 import com.razal.lawyerappback.repository.KlijentRepository;
 import com.razal.lawyerappback.service.KlijentService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.lang.Boolean.TRUE;
+
 @Service
+@Transactional
+@Slf4j
+@RequiredArgsConstructor
 public class KlijentServiceImpl implements KlijentService {
 
-    @Autowired
-    KlijentRepository repository;
+    final KlijentRepository repository;
 
     @Override
     public Klijent saveKlijent(Klijent klijent){
+        log.info("Saving Klijent: " + klijent.getIme() + " " + klijent.getPrezime());
         return repository.save(klijent);
     }
 
     @Override
     public List<Klijent> saveKlijenti(List<Klijent> klijenti){
+        log.info("Saving list of Klijent");
         return repository.saveAll(klijenti);
     }
 
     @Override
     public List<Klijent> getKlijenti(){
+        log.info("Fetching list of Klijent");
         return repository.findAll();
     }
 
     @Override
     public Klijent getKlijentByID(int id){
+        log.info("Fetching Klijent by ID: " + id);
         return repository.findById(id).orElse(null);
     }
 
     @Override
     public Klijent getKlijentByName(String ime){
+        log.info("Fething Klijent by name: "+ ime);
         return repository.findByIme(ime);
     }
 
     @Override
-    public String deleteKlijent(int id){
+    public Boolean deleteKlijent(int id){
+        log.info("Deleting Klijent with ID: "+id);
         repository.deleteById(id);
-        return "Klijent with id: " + id + "is deleted!";
+        return TRUE;
     }
 
     @Override
     public Klijent updateKlijent(Klijent klijent){
-        Klijent k = repository.findById(klijent.getKlijentID()).orElse(null);
-        k.setIme(klijent.getIme());
-        k.setPrezime(klijent.getPrezime());
-        k.setDatumrodjenja(klijent.getDatumrodjenja());
-        k.setJmbg(klijent.getJmbg());
-        k.setTelefon(klijent.getTelefon());
-        k.setSvojstvo(klijent.getSvojstvo());
-        return repository.save(k);
+        log.info("Updating klijent: "+klijent.getIme() + " " + klijent.getPrezime());
+        return repository.save(klijent);
     }
 
 }

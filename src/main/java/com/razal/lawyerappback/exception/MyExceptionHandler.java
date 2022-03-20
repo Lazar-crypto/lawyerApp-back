@@ -12,6 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Date;
+import java.util.NoSuchElementException;
 
 
 @ControllerAdvice //this class will be applied to all @Controllers
@@ -42,4 +43,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDetails err = new ErrorDetails("From handleNotFoundException: " + request.getDescription(false),ex.getMessage(),new Date());
         return new ResponseEntity<>(err,HttpStatus.NOT_FOUND);
     }
+
+
+
 }

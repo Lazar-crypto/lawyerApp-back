@@ -1,6 +1,7 @@
 package com.razal.lawyerappback.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +11,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.AUTO;
 
 
 @Data
@@ -22,7 +25,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Advokat {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = AUTO)
     int advokatID;
 
     int brojadvokatskelegitimacije;
@@ -34,6 +37,7 @@ public class Advokat {
     String korisnickoime;
     String lozinka;
 
+    @JsonInclude(NON_NULL) //posto ne pripada tabeli vrati ga kao response samo ako nije null
     @OneToMany(fetch = LAZY, mappedBy = "advokat" , cascade = {DETACH, MERGE, PERSIST, REFRESH} )
     List<Predmet> predmeti;
 

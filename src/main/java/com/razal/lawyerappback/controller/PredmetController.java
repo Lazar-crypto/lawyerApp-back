@@ -1,7 +1,9 @@
 package com.razal.lawyerappback.controller;
 
 import com.razal.lawyerappback.entity.Predmet;
+import com.razal.lawyerappback.service.PredmetService;
 import com.razal.lawyerappback.service.impl.PredmetServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,10 +11,10 @@ import java.util.List;
 
 @RequestMapping("/predmet")
 @RestController
+@RequiredArgsConstructor
 public class PredmetController {
 
-    @Autowired
-    PredmetServiceImpl service;
+    final PredmetService service;
 
     @PostMapping("/addPredmet")
     public Predmet addPredmet(@RequestBody Predmet predmet){
@@ -45,7 +47,7 @@ public class PredmetController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteKlijent(@PathVariable int id){
+    public Boolean deleteKlijent(@PathVariable int id){
         return service.deletePredmet(id);
     }
 

@@ -16,7 +16,7 @@ public interface KlijentService {
 
     Klijent getKlijentByName(String ime);
 
-    String deleteKlijent(int id);
+    Boolean deleteKlijent(int id);
 
     Klijent updateKlijent(Klijent klijent);
 }

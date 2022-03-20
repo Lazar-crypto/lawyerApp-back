@@ -3,57 +3,65 @@ package com.razal.lawyerappback.service.impl;
 import com.razal.lawyerappback.entity.Predmet;
 import com.razal.lawyerappback.repository.PredmetRepository;
 import com.razal.lawyerappback.service.PredmetService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.lang.Boolean.TRUE;
+
 @Service
+@Transactional
+@Slf4j
+@RequiredArgsConstructor
 public class PredmetServiceImpl implements PredmetService {
 
-    @Autowired
-    PredmetRepository repository;
+    final PredmetRepository repository;
 
     @Override
     public Predmet savePredmet(Predmet predmet){
+        log.info("Saving Predmet: " + predmet.getNaziv());
         return repository.save(predmet);
     }
 
     @Override
     public List<Predmet> savePredmeti(List<Predmet> predmeti){
+        log.info("Saving list of Predmet");
         return repository.saveAll(predmeti);
     }
 
     @Override
     public List<Predmet> getPredmeti(){
+        log.info("Fethcing list of Predmet");
         return repository.findAll();
     }
 
     @Override
     public Predmet getPredmetById(int id){
+        log.info("Fethcing Predmet by ID: " +id);
         return repository.findById(id).orElse(null);
     }
 
     @Override
     public Predmet getPredmetByName(String naziv){
+        log.info("Fethcing Predmet by name: " +naziv);
         return repository.findByNaziv(naziv);
     }
 
     @Override
-    public String deletePredmet(int id){
+    public Boolean deletePredmet(int id){
+        log.info("Deleting Predmet with ID: " +id);
         repository.deleteById(id);
-        return "Predmet with id: " + id + "is deleted!";
+        return TRUE;
     }
 
     @Override
     public Predmet updatePredmet(Predmet predmet){
-        Predmet p = repository.findById(predmet.getPredmetID()).orElse(null);
-        p.setNaziv(predmet.getNaziv());
-        p.setProblem(predmet.getProblem());
-        p.setDatum(predmet.getDatum());
-        p.setAdvokat(predmet.getAdvokat());
-        p.setKlijent(predmet.getKlijent());
-        return repository.save(p);
+        log.info("Updating Predmet: " +predmet.getNaziv());
+        return repository.save(predmet);
     }
 
 }

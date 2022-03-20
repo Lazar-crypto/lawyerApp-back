@@ -15,7 +15,7 @@ public interface PredmetService {
 
     Predmet getPredmetByName(String naziv);
 
-    String deletePredmet(int id);
+    Boolean deletePredmet(int id);
 
     Predmet updatePredmet(Predmet predmet);
 }

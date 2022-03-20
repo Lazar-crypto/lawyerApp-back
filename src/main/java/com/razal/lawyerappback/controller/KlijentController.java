@@ -2,17 +2,17 @@ package com.razal.lawyerappback.controller;
 
 import com.razal.lawyerappback.entity.Klijent;
 import com.razal.lawyerappback.service.KlijentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("/klijent")
 @RestController
+@RequiredArgsConstructor
 public class KlijentController {
 
-    @Autowired
-    KlijentService service;
+    final KlijentService service;
 
     @PostMapping("/addKlijent")
     public Klijent addAdvokat(@RequestBody Klijent klijent){
@@ -45,7 +45,7 @@ public class KlijentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public String deleteKlijent(@PathVariable int id){
+    public Boolean deleteKlijent(@PathVariable int id){
         return service.deleteKlijent(id);
     }
 

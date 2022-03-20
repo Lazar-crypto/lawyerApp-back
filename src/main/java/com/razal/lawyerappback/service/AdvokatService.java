@@ -16,7 +16,7 @@ public interface AdvokatService {
 
     Advokat getAdvokatByName(String ime);
 
-    String deleteAdvokat(int id);
+    Boolean deleteAdvokat(int id);
 
     Advokat updateAdvokat(Advokat advokat);
 }
