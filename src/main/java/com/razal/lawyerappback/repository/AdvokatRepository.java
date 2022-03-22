@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AdvokatRepository extends JpaRepository<Advokat, Integer> {
 
-    Advokat findByIme(String ime);
+    Advokat findByKorisnickoime(String username);
 }

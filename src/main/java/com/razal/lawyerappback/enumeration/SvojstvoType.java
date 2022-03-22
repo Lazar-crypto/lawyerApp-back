@@ -1,4 +1,4 @@
-package com.razal.lawyerappback.entity;
+package com.razal.lawyerappback.enumeration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

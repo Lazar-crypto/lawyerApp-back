@@ -10,15 +10,15 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.AUTO;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "klijent")
 public class Klijent {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = AUTO)
     int klijentID;
 
     String ime;

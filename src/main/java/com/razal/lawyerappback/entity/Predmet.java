@@ -11,16 +11,16 @@ import java.sql.Date;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.GenerationType.AUTO;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "predmet")
 public class Predmet {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = AUTO)
     int predmetID;
     String naziv;
     @Lob //more space

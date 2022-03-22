@@ -1,21 +1,22 @@
 package com.razal.lawyerappback.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.razal.lawyerappback.enumeration.SvojstvoType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.AUTO;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "svojstvo")
 public class Svojstvo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = AUTO)
     int svojstvoID;
 
     @Enumerated(EnumType.STRING)

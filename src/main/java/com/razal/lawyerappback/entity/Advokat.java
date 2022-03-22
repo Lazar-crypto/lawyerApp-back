@@ -13,6 +13,7 @@ import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.GenerationType.AUTO;
 
@@ -21,7 +22,6 @@ import static javax.persistence.GenerationType.AUTO;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "advokat")
 public class Advokat {
 
     @Id
@@ -40,6 +40,14 @@ public class Advokat {
     @JsonInclude(NON_NULL) //posto ne pripada tabeli vrati ga kao response samo ako nije null
     @OneToMany(fetch = LAZY, mappedBy = "advokat" , cascade = {DETACH, MERGE, PERSIST, REFRESH} )
     List<Predmet> predmeti;
+
+    //for spring security
+    @JoinColumn(name = "roleID")
+    @ManyToOne(fetch = EAGER)
+    Role role;
+    //String[] authorities;
+    //boolean isNotLocked; //kad se registuje bice locked i salje se mejl
+    //boolean isEnabled;// otkljucan za koriscenje
 
 
 }

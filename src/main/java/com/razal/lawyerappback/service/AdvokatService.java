@@ -1,6 +1,8 @@
 package com.razal.lawyerappback.service;
 
 import com.razal.lawyerappback.entity.Advokat;
+import com.razal.lawyerappback.entity.Role;
+import com.razal.lawyerappback.enumeration.RoleType;
 
 import java.util.List;
 
@@ -14,9 +16,12 @@ public interface AdvokatService {
 
     Advokat getAdvokatByID(int id);
 
-    Advokat getAdvokatByName(String ime);
+    Advokat getAdvokatByUsername(String username);
 
     Boolean deleteAdvokat(int id);
 
     Advokat updateAdvokat(Advokat advokat);
+
+    Role getRole(RoleType type);
+
 }
