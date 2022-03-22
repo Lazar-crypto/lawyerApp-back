@@ -1,8 +1,7 @@
-package com.razal.lawyerappback.controller;
+package com.razal.lawyerappback.resource;
 
 import com.razal.lawyerappback.entity.Advokat;
-import com.razal.lawyerappback.entity.Response;
-import com.razal.lawyerappback.exception.custom.NotFoundException;
+import com.razal.lawyerappback.response.CustomResponse;
 import com.razal.lawyerappback.service.AdvokatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/advokat")
 @RestController
 @RequiredArgsConstructor
-public class AdvokatController {
+public class AdvokatResource {
 
     final AdvokatService service;
 
@@ -28,11 +27,11 @@ public class AdvokatController {
         return service.saveAdvokat(advokat);
     }*/
     @PostMapping("/addAdvokat")
-    public ResponseEntity<Response> addAdvokat(@RequestBody @Valid Advokat advokat){
+    public ResponseEntity<CustomResponse> addAdvokat(@RequestBody @Valid Advokat advokat){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
-                        .data(Map.of("advokat",service.saveAdvokat(advokat)))
+                        .data(Map.of("advokat", service.saveAdvokat(advokat)))
                         .msg("Advokat created")
                         .status(CREATED)
                         .statusCode(CREATED.value())
@@ -46,9 +45,9 @@ public class AdvokatController {
         return service.saveAdvokati(advokati);
     }*/
     @PostMapping("/addAdvokati")
-    public ResponseEntity<Response> addAdvokatI(@RequestBody @Valid List<Advokat> advokati){
+    public ResponseEntity<CustomResponse> addAdvokatI(@RequestBody @Valid List<Advokat> advokati){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
                         .data(Map.of("advokati",service.saveAdvokati(advokati)))
                         .msg("Advokati created")
@@ -64,9 +63,9 @@ public class AdvokatController {
         return service.getAdvokati();
     }*/
     @GetMapping("/advokati")
-    public ResponseEntity<Response> getAdvokati(){
+    public ResponseEntity<CustomResponse> getAdvokati(){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
                         .data(Map.of("advokati",service.getAdvokati()))
                         .msg("Advokati retrieved")
@@ -84,15 +83,11 @@ public class AdvokatController {
         return advokat;
     }*/
     @GetMapping("/advokatById/{id}")
-    public ResponseEntity<Response> getAdvokatById(@PathVariable int id){
-        Advokat advokat = service.getAdvokatByID(id);
-        if(advokat == null)
-            throw new NotFoundException("Advokat with id: " + id + " doesnt exist!");
-
+    public ResponseEntity<CustomResponse> getAdvokatById(@PathVariable int id){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
-                        .data(Map.of("advokat",advokat))
+                        .data(Map.of("advokat",service.getAdvokatByID(id)))
                         .msg("Advokat with id: "+id+" retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -108,15 +103,11 @@ public class AdvokatController {
         return advokat;
     }*/
     @GetMapping("/advokatByName/{name}")
-    public ResponseEntity<Response> getAdvokatByName(@PathVariable String name){
-        Advokat advokat = service.getAdvokatByName(name);
-        if(advokat == null)
-            throw new NotFoundException("Advokat whose name is : '" + name + "' doesnt exist!");
-
+    public ResponseEntity<CustomResponse> getAdvokatByName(@PathVariable String name){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
-                        .data(Map.of("advokat",advokat))
+                        .data(Map.of("advokat",service.getAdvokatByUsername(name)))
                         .msg("Advokat whose name is: "+name+" retrieved")
                         .status(OK)
                         .statusCode(OK.value())
@@ -129,9 +120,9 @@ public class AdvokatController {
     return service.updateAdvokat(advokat);
     }*/
     @PutMapping("/update")
-    public ResponseEntity<Response> updateAdvokat(@Valid @RequestBody Advokat advokat){
+    public ResponseEntity<CustomResponse> updateAdvokat(@Valid @RequestBody Advokat advokat){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
                         .data(Map.of("updated",service.updateAdvokat(advokat)))
                         .msg("Advokat updated")
@@ -146,9 +137,9 @@ public class AdvokatController {
     }*/
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Response> deleteAdvokat(@PathVariable int id){
+    public ResponseEntity<CustomResponse> deleteAdvokat(@PathVariable int id){
         return ResponseEntity.ok(
-                Response.builder()
+                CustomResponse.builder()
                         .timeStamp(now())
                         .data(Map.of("deleted",service.deleteAdvokat(id)))
                         .msg("Advokat deleted")

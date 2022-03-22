@@ -1,4 +1,4 @@
-package com.razal.lawyerappback.controller;
+package com.razal.lawyerappback.resource;
 
 import com.razal.lawyerappback.entity.Klijent;
 import com.razal.lawyerappback.service.KlijentService;
@@ -10,7 +10,7 @@ import java.util.List;
 @RequestMapping("/klijent")
 @RestController
 @RequiredArgsConstructor
-public class KlijentController {
+public class KlijentResource {
 
     final KlijentService service;
 

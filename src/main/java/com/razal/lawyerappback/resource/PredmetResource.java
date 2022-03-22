@@ -1,10 +1,8 @@
-package com.razal.lawyerappback.controller;
+package com.razal.lawyerappback.resource;
 
 import com.razal.lawyerappback.entity.Predmet;
 import com.razal.lawyerappback.service.PredmetService;
-import com.razal.lawyerappback.service.impl.PredmetServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @RequestMapping("/predmet")
 @RestController
 @RequiredArgsConstructor
-public class PredmetController {
+public class PredmetResource {
 
     final PredmetService service;
 
