@@ -1,20 +1,29 @@
 package com.razal.lawyerappback.security;
 
+import com.razal.lawyerappback.security.filter.JwtTokenVerifier;
+import com.razal.lawyerappback.security.filter.JwtUsernameAndPasswordAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final JwtConfig jwtConfig;
+    final UserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtConfig config) {
-        this.jwtConfig = config;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        System.out.println("IMplementacija");
+        auth.userDetailsService(userDetailsService).passwordEncoder(jwtConfig.passwordEncoder());
     }
 
     @Override
@@ -29,7 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                    .loginPage("/loginPage")
+                .permitAll();
     }
+
 
 }

@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import javax.crypto.SecretKey;
 import com.google.common.net.HttpHeaders;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -30,5 +32,10 @@ public class JwtConfig {
     @Bean
     public SecretKey getSecretKey(){
         return Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

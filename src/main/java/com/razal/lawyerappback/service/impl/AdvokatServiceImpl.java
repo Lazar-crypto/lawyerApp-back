@@ -34,7 +34,6 @@ public class AdvokatServiceImpl implements AdvokatService, UserDetailsService {
 
     final AdvokatRepository advokatRepository;
     final RoleRepository roleRepository;
-    final PasswordEncoder passwordEncoder;
 
     //from UserDetailsService to load users from db
     @Override
@@ -53,7 +52,7 @@ public class AdvokatServiceImpl implements AdvokatService, UserDetailsService {
         else
             role = getRole(USER);
         advokat.setRole(role);
-        advokat.setLozinka(passwordEncoder.encode(advokat.getLozinka()));
+        advokat.setLozinka(advokat.getLozinka());
         log.info("Saving Advokat: " + advokat.getIme() + " " + advokat.getPrezime());
         return advokatRepository.save(advokat);
     }
@@ -61,7 +60,7 @@ public class AdvokatServiceImpl implements AdvokatService, UserDetailsService {
     @Override
     public List<Advokat> saveAdvokati(List<Advokat> advokati){
         log.info("Saving list of Advokat");
-        advokati.forEach(advokat -> advokat.setLozinka(passwordEncoder.encode(advokat.getLozinka())));
+        advokati.forEach(advokat -> advokat.setLozinka(advokat.getLozinka()));
         return advokatRepository.saveAll(advokati);
     }
 

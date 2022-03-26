@@ -1,5 +1,6 @@
-package com.razal.lawyerappback.security;
+package com.razal.lawyerappback.security.filter;
 
+import com.razal.lawyerappback.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtException;
@@ -55,7 +56,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream()
                     .map(m -> new SimpleGrantedAuthority(m.get("authority")))
                     .collect(Collectors.toSet());
-
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                 username,null,simpleGrantedAuthorities

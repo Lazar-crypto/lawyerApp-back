@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.NoSuchElementException;
-
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
 
@@ -68,10 +64,6 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
                         .developerMsg("From: " + MyExceptionHandler.class)
                         .build()
         );
-
-
     }
-
-
 
 }
