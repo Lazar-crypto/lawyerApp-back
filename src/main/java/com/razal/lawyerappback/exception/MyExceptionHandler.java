@@ -1,7 +1,7 @@
 package com.razal.lawyerappback.exception;
 
 import com.razal.lawyerappback.exception.custom.NotFoundException;
-import com.razal.lawyerappback.response.CustomResponse;
+import com.razal.lawyerappback.response.CustomHttpResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return ResponseEntity.ok(
-                CustomResponse.builder()
+                CustomHttpResponse.builder()
                         .timeStamp(now())
                         .msg(ex.getMessage())
                         .reason("Validation error")
@@ -40,7 +40,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
             HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return ResponseEntity.ok(
-                CustomResponse.builder()
+                CustomHttpResponse.builder()
                         .timeStamp(now())
                         .msg(ex.getMessage())
                         .reason("User provided wrong Http method")
@@ -55,7 +55,7 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(NotFoundException ex, WebRequest request){
         return ResponseEntity.ok(
-                CustomResponse.builder()
+                CustomHttpResponse.builder()
                         .timeStamp(now())
                         .msg(ex.getMessage())
                         .reason("The object does not exist in database")
